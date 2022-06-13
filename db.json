@@ -2,7 +2,7 @@
   "products": [
     {
       "title": "Bloodworth",
-      "gender": "Female",
+      "gender": "female",
       "price": "3978",
       "category": "saree",
       "image": "https://picsum.photos/200",
@@ -10,7 +10,7 @@
     },
     {
       "title": "Tomik",
-      "gender": "Female",
+      "gender": "female",
       "price": "2198",
       "category": "jacket",
       "image": "https://picsum.photos/200",

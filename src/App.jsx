@@ -7,7 +7,7 @@ function App() {
 const [data,setData]=React.useState([]);
 const [page,setPage]=React.useState(1);
 const [total,setTotal]=React.useState(0);
-const [sortValue,setsortValue]=React.useState("");
+
 const getData=()=>
 {
     fetch(`http://localhost:3001/products?_page=${page}&_limit=5`)
@@ -17,8 +17,7 @@ const getData=()=>
     .then((res)=>
     { 
       
-      console.log(res);
-      //setTotal(maxtotal);
+      
       setData(res)
       
     })
@@ -30,9 +29,26 @@ const getData=()=>
 const handleSort=(e)=>
 {
   let {value}=e.target;
-  console.log(value);
-  setsortValue(value);
-  fetch(`http://localhost:3001/products?_sort=price&_order=${sortValue}`)
+  
+  fetch(`http://localhost:3001/products?_page=${page}&_limit=5&_sort=price&_order=${value}`)
+    .then((res)=>
+      res.json()
+    )
+    .then((res)=>
+    { 
+      
+      setData(res)
+      
+    })
+    .catch((error)=>
+    {
+      console.log(error);
+    })
+}
+const handleFilter=(e)=>
+{
+  let {value}=e.target;
+  fetch(`http://localhost:3001/products?gender=${value}`)
     .then((res)=>
       res.json()
     )
@@ -59,10 +75,17 @@ React.useEffect(
         <ProductForm getData={getData}/>
       </div>
       <div>
-        <label htmlFor="sort"></label>
-        <select name="sort" value={sortValue} onChange={(Event)=>(handleSort(Event))} >
+        <label htmlFor="sort">Sort by</label>
+        <select name="sort" onChange={(Event)=>(handleSort(Event))} >
+          <option value=""></option>
           <option value="asc">Low to high</option>
           <option value="desc">High to low</option>
+        </select>
+        <label htmlFor="filter">Filter :</label>
+        <select name="filter"  onChange={(event)=>(handleFilter(event))} >
+          <option value=""></option>
+          <option value="male">Male</option>
+          <option value="female">Female</option>
         </select>
         <ProductList data={data}/>
         <div style={{display:"flex",justifyContent:"space-between",}}>
