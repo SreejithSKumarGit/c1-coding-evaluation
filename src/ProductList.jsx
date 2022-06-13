@@ -1,6 +1,6 @@
 import React from "react";
 
-function ProductList({data}){
+function ProductList({data ,handleDelete}){
     
     
     return(
@@ -16,6 +16,7 @@ function ProductList({data}){
                     <h3>Gender :{item.gender}</h3>
                     <h3>Product Price: {item.price}</h3>
                     <h3>Category : {item.category}</h3>
+                    <button onClick={()=>(handleDelete(item.id))}>Delete</button>
                </div> 
             ))
         }

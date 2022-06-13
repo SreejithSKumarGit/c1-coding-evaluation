@@ -63,6 +63,15 @@ const handleFilter=(e)=>
       console.log(error);
     })
 }
+const handleDelete=(id)=>
+    {
+        fetch(`http://localhost:3001/products/${id}`,
+        {
+           method:"DELETE",
+           headers:{"Content-type":"Application/json"} 
+        })
+        getData();
+    }
 React.useEffect(
   ()=>{
     getData()
@@ -87,7 +96,7 @@ React.useEffect(
           <option value="male">Male</option>
           <option value="female">Female</option>
         </select>
-        <ProductList data={data}/>
+        <ProductList data={data} handleDelete={handleDelete}/>
         <div style={{display:"flex",justifyContent:"space-between",}}>
         <button style={{height:"25px"}} onClick={()=>setPage(page-1)} disabled={page===1}>Previous</button>
         <h1>{page}</h1>
